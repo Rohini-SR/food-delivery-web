@@ -5,9 +5,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 5000;
 
-// Middleware
-app.use(cors()); // To allow cross-origin requests
-app.use(bodyParser.json()); // To parse JSON data
+app.use(cors()); 
+app.use(bodyParser.json());
+app.use(express.json());
 
 // In-memory data to store orders
 let orders = [];
@@ -47,6 +47,34 @@ app.get('/api/order/:id', (req, res) => {
 
   res.json({ order });
 });
+
+// In-memory array to store dishes data
+const dishes = [
+    { id: 1, img: 'path-to-img1', title: 'Tasty Dish 1', price: '799₹' },
+    { id: 2, img: 'path-to-img2', title: 'Tasty Dish 2', price: '699₹' },
+    { id: 3, img: 'path-to-img3', title: 'Tasty Dish 3', price: '599₹' },
+    { id: 4, img: 'path-to-img4', title: 'Tasty Dish 4', price: '499₹' },
+    { id: 5, img: 'path-to-img5', title: 'Tasty Dish 5', price: '399₹' },
+    { id: 6, img: 'path-to-img6', title: 'Tasty Dish 6', price: '299₹' },
+  ];
+  
+  // Route to get all dishes
+  app.get('/api/dishes', (req, res) => {
+    res.json(dishes);
+  });
+
+  // Simulating menu data
+const menu = [
+  { id: 1, img: '/img/food6.jpg', title: 'Delicious Dish', price: '150 ₹' },
+  { id: 2, img: '/img/food9.jpg', title: 'Delicious Dish', price: '250 ₹' },
+  { id: 3, img: '/img/food10.jpg', title: 'Delicious Dish', price: '100 ₹' }
+];
+
+// Routes
+app.get('/api/menu', (req, res) => {
+  res.json(menu);
+});
+
 
 // Start server
 app.listen(port, () => {
